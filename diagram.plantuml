@@ -1,0 +1,50 @@
+@startuml High School
+
+class Member {
+  +first_name: String
+  +last_name: String
+}
+
+class Professor {
+}
+
+class Assistant {
+}
+
+class Student {
+  +option: String
+}
+
+Member <|-- Professor
+Member <|-- Assistant
+Member <|-- Student
+
+
+class Subject {
+  +name: String
+}
+
+Professor "2..*" -- "*" Subject : expert in >
+
+class Expertise {
+  +level: Integer
+}
+
+Assistant "*" -- "*" Subject : knows >
+(Assistant, Subject) . Expertise
+
+class Institute {
+  +name: String
+}
+
+Professor "*" -- "1" Institute : works for >
+
+class Course {
+}
+
+Course "*" -- "1" Subject : covers >
+Professor "1" -- "*" Course : teaches >
+Assistant "0..3" -- "*" Course : supervises >
+Student "5..*" -- "*" Course : follows >
+
+@enduml
